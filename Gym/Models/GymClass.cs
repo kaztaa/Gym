@@ -5,7 +5,6 @@ namespace Gym.Models
 {
     public class GymClass
     {
-        //[Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartTime { get; set; }
@@ -13,6 +12,6 @@ namespace Gym.Models
         public DateTime EndTime { get { return StartTime + Duration; } }
         public String Description { get; set; }
 
-        public ICollection<ApplicationUserGymClass> AttendingMembers { get; set; }
+        public ICollection<ApplicationUserGymClass>? AttendingMembers { get; set; }
     }
 }

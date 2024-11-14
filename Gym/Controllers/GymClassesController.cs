@@ -155,6 +155,18 @@ namespace Gym.Controllers
             return _context.GymClass.Any(e => e.Id == id);
         }
 
-       
+        public async Task<IActionResult> BookingToggle(int? id)
+        {
+            var gymClass = await _context.GymClass
+                                 .Include(g => g.AttendingMembers)
+                                 .FirstOrDefaultAsync(g => g.Id == id);
+
+            if (id == null) return NotFound();
+
+            
+
+
+            return Ok();
+        }
     }
 }
