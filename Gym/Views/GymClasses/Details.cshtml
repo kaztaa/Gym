@@ -38,7 +38,7 @@
             <h5>Attending members: </h5>
             @foreach (var attendee in Model.AttendingMembers)
             {
-                <div class="row">@attendee.User.Email</div>
+                <div class="row">@attendee.User.FullName</div>
             }
         </dd>
     </dl>

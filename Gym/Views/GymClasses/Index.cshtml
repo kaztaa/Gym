@@ -47,27 +47,25 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @if (User.IsInRole("Admin"))
-                    {
+                    @if (User.Identity.IsAuthenticated){
 
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
-                    
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a><span>|</span>
+                        }
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                        @if (User.IsInRole("User"))
+                        {
+                            <span>|</span>
+                            <a asp-action="BookingToggle" asp-route-id="@item.Id">Book</a>
+                        }
+
+
                     }
 
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-
-                        <span>|</span><a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-                    @if (User.IsInRole("User"))
-                    {
-
-                        <span>|</span>
-
-                        <a asp-action="BookingToggle" asp-route-id="@item.Id">Book</a>
-                    }
             </td>
         </tr>
 }
