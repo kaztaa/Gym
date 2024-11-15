@@ -12,6 +12,7 @@ namespace Gym.Data
         {
         }
         public DbSet<GymClass> GymClass { get; set; }
+        public DbSet<ApplicationUserGymClass> ApplicationUserGymClass { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -4,6 +4,7 @@ using Gym.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241115084225_userUpdate")]
+    partial class userUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,24 @@ namespace Gym.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Gym.Data.ApplicationUserGymClass", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("GymClassId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicationUserId", "GymClassId");
+
+                    b.HasIndex("GymClassId");
+
+                    b.ToTable("ApplicationUserGymClass");
+                });
 
             modelBuilder.Entity("Gym.Models.ApplicationUser", b =>
                 {
@@ -96,21 +117,6 @@ namespace Gym.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Gym.Models.ApplicationUserGymClass", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("GymClassId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicationUserId", "GymClassId");
-
-                    b.HasIndex("GymClassId");
-
-                    b.ToTable("ApplicationUserGymClass");
                 });
 
             modelBuilder.Entity("Gym.Models.GymClass", b =>
@@ -277,9 +283,9 @@ namespace Gym.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Gym.Models.ApplicationUserGymClass", b =>
+            modelBuilder.Entity("Gym.Data.ApplicationUserGymClass", b =>
                 {
-                    b.HasOne("Gym.Models.ApplicationUser", "User")
+                    b.HasOne("Gym.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("AttendedClasses")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -291,9 +297,9 @@ namespace Gym.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("GymClass");
+                    b.Navigation("ApplicationUser");
 
-                    b.Navigation("User");
+                    b.Navigation("GymClass");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
